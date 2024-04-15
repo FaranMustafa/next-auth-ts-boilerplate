@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.error-label {
+  color: red;
+  font-size: 0.8rem;
+  margin-top: 0.2rem;
+}

@@ -23,16 +23,17 @@ export const authOptions = {
           password: credentials.password,
         })
 
-        if (loginResponse.data.status === 'success') {
+        if (loginResponse.status === 200) {
           return {
-            id: loginResponse.data.data.user.id,
+            id: loginResponse.data.id,
             status: 'success',
-            data: loginResponse.data.data,
+            data: loginResponse.data,
           }
         }
-        if (loginResponse.data.status === 'error') {
+        if (loginResponse.status > 200) {
           throw new Error(loginResponse.data.message)
         }
+
         throw new Error('Login failed')
       },
     }),
@@ -70,7 +71,7 @@ export const authOptions = {
       // TODO: check for user object is the way for it
       // ** this is the way to check if the user is logged in or invoked by the trigger login and creds
       if (trigger === 'signIn' && account.type === 'credentials') {
-        let user = userJWT.data.user
+        let user = userJWT.data
         let status = userJWT.status
         let tokenData = userJWT.data
         let token = {
@@ -106,7 +107,6 @@ export const authOptions = {
           }
 
           let ResponseTokenRefresh = await refreshToken(payload, headers)
-          console.log('ResponseTokenRefresh', ResponseTokenRefresh, tokenJWT)
           if (ResponseTokenRefresh.data.status === 'success') {
             let data = ResponseTokenRefresh.data.data
             let token = {
@@ -139,5 +139,5 @@ export const authOptions = {
     // decode: async ({ secret, token, maxAge }) => {},
   },
   secret: process.env.NEXTAUTH_SECRET,
-  debug: process.env.NEXTAUTH_DEBUG || false,
+  debug: true,
 }

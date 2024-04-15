@@ -1,23 +1,11 @@
 import { withAuth } from 'next-auth/middleware'
 import { NextResponse } from 'next/server'
-// import { ROLES } from './utils/constants/app-constants'
-
-interface RoleType {
-  id: number
-  name: string
-  __entity: string
-  enum: string
-}
 
 export default withAuth(
   // `withAuth` augments your `Request` with the user's token.
   function middleware(request) {
     let token = request.nextauth?.token?.token
     if (!token) {
-      if (!request.nextUrl.pathname.startsWith('/confirm-email')) {
-        return NextResponse.redirect(new URL('/confirm-email', request.url))
-      }
-
       return NextResponse.redirect(new URL('/login', request.url))
     }
 
