@@ -139,5 +139,5 @@ export const authOptions = {
     // decode: async ({ secret, token, maxAge }) => {},
   },
   secret: process.env.NEXTAUTH_SECRET,
-  debug: true,
+  debug: process.env.NEXTAUTH_DEBUG || false,
 }
