@@ -118,7 +118,10 @@ const LoginFormComponent = () => {
                   <span className="error-label">{errors.password}</span>
                 )}
               </div>
-              <button className="bg-green-500 hover:bg-green-700 text-white uppercase text-sm font-semibold px-4 py-2 rounded">
+              <button
+                disabled={!isValid}
+                className="bg-green-500 hover:bg-green-700 text-white uppercase text-sm font-semibold px-4 py-2 rounded"
+              >
                 Login
               </button>
             </Form>
