@@ -1,61 +1,56 @@
-# Nextjs Auth boilerplate
+# Next.js Auth boilerplate
 
-This is a Next.js project.
+A Next.js 14 (App Router) starter with TypeScript, Tailwind CSS and NextAuth credentials login.
 
-## Getting Started
+## What's included
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+- Credentials sign-in through NextAuth, backed by an external API (defaults to [DummyJSON](https://dummyjson.com/docs/auth)).
+- JWT sessions with access and refresh tokens, plus a token-refresh path in the `jwt` callback.
+- Route protection via `src/middleware.tsx` and a custom `/login` page.
+- Axios service layer in `src/services`.
+- ESLint, Prettier and Husky pre-commit hooks.
 
-### Prerequisites
+## Prerequisites
 
-What things you need to install the software and how to install them:
+- Node.js 18+ and npm
 
-- Node.js and npm: You can download Node.js from [here](https://nodejs.org/en/download/). npm is included with Node.js.
+## Getting started
 
-### Installing
+1. Clone the repository and install dependencies:
 
-A step by step series of examples that tell you how to get a development environment running:
+   ```bash
+   git clone https://github.com/FaranMustafa/next-auth-ts-boilerplate.git
+   cd next-auth-ts-boilerplate
+   npm install
+   ```
 
-1. Clone the repository: `git clone <repository-url>`.
-2. Navigate into the project directory: `cd <project-name>`.
-3. Install the dependencies: `npm install`.
+2. Create your environment file from the example:
 
-## Running the Application
+   ```bash
+   cp .env.example .env
+   ```
 
-To start the development server, run the following command:
+3. Generate your own secret and paste it into `NEXTAUTH_SECRET` in `.env`:
 
-```bash
-npm run dev
-```
+   ```bash
+   openssl rand -base64 32
+   ```
 
-setup the environment
+   See the [NextAuth secret docs](https://next-auth.js.org/configuration/options#nextauth_secret). Never commit `.env`; it is listed in `.gitignore`.
 
-- create a file .env
+4. Start the development server:
 
-and copy the following code
+   ```bash
+   npm run dev
+   ```
 
-```bash
-# next auth secret created by open ssl
-NEXTAUTH_SECRET=NZd66RLeMFjyN1irMvgWg3/ouOivSuvOVevc06S9aJ8=
+   Open http://localhost:3000 and sign in with one of the DummyJSON test users from their [auth docs](https://dummyjson.com/docs/auth).
 
-#local
-NEXTAUTH_URL="http://localhost:3000"
-NEXT_PUBLIC_API_URL="https://dummyjson.com"
+## Scripts
 
-# deveploment
-NEXTAUTH_DEBUG=true
-```
-
-you can create your Next auth secret by openssl reference (link: https://next-auth.js.org/configuration/options#nextauth_secret)
-
-after all this just run
-
-```bash
-npm install
-```
-
-and after all the dependencies are run
-
-```bash
-npm run dev
-```
+| Command | Purpose |
+|---------|---------|
+| `npm run dev` | Development server |
+| `npm run build` | Production build (runs format and lint first) |
+| `npm run lint` | ESLint |
+| `npm run check-types` | TypeScript type check |
